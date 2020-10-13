@@ -30,17 +30,29 @@ void setup(){
     Serial.println("Error mounting FS");
     return;
   }
-
-  File file = SPIFFS.open("data.txt", "w");
-  if (!file) {
+// Write to file
+  // File file = SPIFFS.open("data.txt", "w");
+  // if (!file) {
+  //   Serial.println("File opened successfully");
+  // }
+  // int byt = file.print("testing Spiffs");
+  // if (byt > 0) {
+  //   Serial.println("Wrote file");
+  // }else{
+  //   Serial.println("Failed");
+  // }
+// Read from file
+  File file = SPIFFS.open("data.txt", "r");
+  if (file) {
     Serial.println("File opened successfully");
   }
-  int byt = file.print("testing Spiffs");
-  if (byt > 0) {
-    Serial.println("Wrote file");
+
+  if (file.available()) {
+    Serial.write(file.read());
   }else{
     Serial.println("Failed");
   }
+  file.close();
 }
 
 void loop(){
